@@ -134,8 +134,7 @@ impl From<GlobError> for std::io::Error {
     fn from(e: GlobError) -> Self {
         if let ignore::Error::Io(e) = e.0 {
             e
-        }
-        else {
+        } else {
             std::io::ErrorKind::Other.into()
         }
     }
@@ -350,7 +349,8 @@ impl Iterator for IntoIter {
                         // able to recognize the file name.
                         // `unwrap` here is safe, since walkdir returns the files with relation
                         // to the given base-dir.
-                        match self.ignore
+                        match self
+                            .ignore
                             .matched(e.path().strip_prefix(self.ignore.path()).unwrap(), is_dir)
                         {
                             Match::Whitelist(_) => return Some(Ok(e)),
@@ -468,7 +468,8 @@ mod tests {
             "contrib[/]lib.rs",
             "contrib[/]README.md",
             "contrib[/]README.rst",
-        ].iter()
+        ]
+            .iter()
             .map(normalize_path_sep)
             .collect();
 
@@ -575,7 +576,8 @@ mod tests {
             "contrib[/]lib.rs",
             "contrib[/]README.md",
             "contrib[/]README.rst",
-        ].iter()
+        ]
+            .iter()
             .map(normalize_path_sep)
             .collect();
 
